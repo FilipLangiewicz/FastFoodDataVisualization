@@ -1,0 +1,16 @@
+Mortality,None,<1 serving/week,1-2 servings/week,3-6 servings/week,≥1 serving/day,P for trend
+All Cause Mortality,,,,,,
+No of deaths/participants,4693/15 166,11 755/38 482,9529/33 210,4283/15 480,1298/4628,—
+Age adjusted model,1,1.06,1.13,1.2,1.36,<0.001
+Multivariable model 1,1,1.01,1.03,1.03,1.08,0.02
+Multivariable model 2,1,1.01,1.02,1.03,1.07,0.06
+Cardiovascular mortality:,,,,,,
+No of deaths/participants,1416/15 166,3456/38 482,2842/33 210,1221/15 480,385/4628,—
+Age adjusted model,1,1.04,1.16,1.19,1.43,<0.001
+Multivariable model 1,1,1,1.03,1,1.08,0.29
+Multivariable model 2,1,0.99,1.02,0.99,1.06,0.57
+Cancer mortality:,,,,,,
+No of deaths/participants,1180/15 166,3071/38 482,2568/33 210,1203/15 480,336/4628,—
+Age adjusted model,1,1.06,1.11,1.16,1.16,<0.001
+Multivariable model 1,1,1.03,1.02,1.01,0.95,0.61
+Multivariable model 2,1,1.03,1.01,1,0.93,0.41
