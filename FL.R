@@ -1,6 +1,7 @@
 library(dplyr)
 library(tidyr)
 library(ggplot2)
+library(stringr)
 
 
 burger_king_menu <- read.csv("data/burger-king-menu.csv")
@@ -11,6 +12,11 @@ obesity <- read.csv("data/obesity-percents.csv")
 mc_in_Europe <- read.csv("data/mcdonalds_in_europe.csv", sep = ";")
 mcZestaw <- read.csv("data/McZestawBigMac.csv")
 zdrowyObiad <- read.csv("data/zdrowyObiad.csv")
+spendings <- read.csv("data/spendings_fast_food_USA_2004_2022.csv", sep = ";")
+usa_population <- read.csv("data/population_usa.csv")
+
+
+
 
 zdrowy_vs_fastfood <- mcZestaw %>% 
   filter(Danie == "Zestaw") %>% 
@@ -43,6 +49,12 @@ zdrowy_vs_fastfood %>%
   pivot_longer(cols = -Danie, values_to = "Wartosc", names_to = "Skladnik") %>% 
   ggplot(aes(x = Skladnik, y = Wartosc, fill = Danie)) +
   geom_col(position = "dodge")
+
+spendings %>% 
+  left_join(usa_population, by = "Year") %>% 
+  mutate(person_year_spending = Spending.billion.dollars. * 1000000000 / Population) %>% 
+  ggplot(aes(x = Year, y = person_year_spending)) +
+  geom_line()
 
 
 

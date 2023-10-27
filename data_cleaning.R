@@ -50,6 +50,16 @@
 # 
 # write.csv(www, file = "data/obesity-cleaned.csv",row.names = FALSE) 
 # 
+# us_population <- read.csv("data/population_usafacts.csv")
+# 
+# us_population %>% 
+#   filter(Years == "Population (People)") %>% 
+#   select(-c(X1900,X1901,X1902,X1903,X1904,X1905,X1906,X1907)) %>% 
+#   pivot_longer(cols = -Years, names_to = "Year", values_to = "Population") %>% 
+#   mutate(Year = as.integer(str_remove(Year, "X"))) %>% 
+#   select(Year, Population) %>% 
+#   write.csv(file = "data/population_usa.csv", row.names = FALSE)
+# 
 # 
 #            
 # 
