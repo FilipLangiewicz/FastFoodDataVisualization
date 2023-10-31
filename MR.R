@@ -4,6 +4,10 @@ library(ggplot2)
 library(viridis)
 library(devtools)
 library(ggthemr)
+library(tidyverse)
+library(ggthemes)
+library(openxlsx)
+
 
 burger_king_menu <- read.csv("data/burger-king-menu.csv")
 deaths_obesity <- read.csv("data/deaths-due-to-obesity.csv")
@@ -37,3 +41,71 @@ frequency_of_visiting_fast_food_modified %>%
   ggplot(aes(y = Answer, x = PercentageShare, fill = Year)) +
   geom_bar(stat = "identity", position = position_dodge2(width = 0.5, preserve = "single"), width = 0.5) +
   labs(title = "How often do you eat fast food?", x = "Share of respondents (%)", y = "Answer") 
+
+deaths_obesity_in_2015_per_country <-deaths_obesity %>% 
+  filter(Year == 2015) %>% 
+  rename(CCA3 = Code) %>% 
+  inner_join(population, by = 'CCA3' ) %>% 
+  select(c('Entity', 'Deaths', 'X2015.Population')) %>% 
+  rename(c(Country = Entity, Population = X2015.Population)) %>% 
+  mutate(Deaths_due_to_obesity_per_mille = (Deaths/Population) * 1000) %>% 
+  select(Country, Deaths_due_to_obesity_per_mille) %>% 
+  remove_rownames()
+
+# write.xlsx(deaths_obesity_in_2015_per_country, file = "data/deaths_obesity_in_2015_per_country.xlsx")
+
+# wczytuję ramkę z poprawionymi ręcznie nazwami krajów
+
+deaths_obesity_in_2015_per_country <- read.xlsx("data/deaths_obesity_in_2015_per_country.xlsx")
+
+obesity_in_2015_per_country <- obesity %>% 
+  filter(Sex == 'Both sexes', Year == 2015) %>% 
+  select(Country, Obesity_percent) %>% 
+  remove_rownames()
+
+# write.xlsx(obesity_in_2015_per_country, file = "data/obesity_in_2015_per_country.xlsx")
+
+# wczytuję ramkę z poprawionymi ręcznie nazwami krajów
+
+obesity_in_2015_per_country <- read.xlsx("data/obesity_in_2015_per_country.xlsx")
+
+world_map = map_data("world") %>% 
+  filter(! long > 180)
+
+countries = world_map %>% 
+  distinct(region) %>% 
+  rowid_to_column() %>% 
+  rename(Country = region) %>% 
+  left_join(obesity_in_2015_per_country, by = 'Country')
+
+map_obesity_percent <- countries %>% 
+  ggplot(aes(fill = Obesity_percent, map_id = Country)) +
+  geom_map(map = world_map) +
+  expand_limits(x = world_map$long, y = world_map$lat) +
+  coord_map("moll") +
+  scale_fill_viridis_c(na.value = "grey", option = "G", direction = -1) +
+  theme_map() +
+  labs(fill = "Obesity among adults (%)")
+  
+  
+ggsave("plots/map_obesity_percent.pdf", plot = map_obesity_percent, width = 6, height = 4)
+
+countries2= world_map %>% 
+  distinct(region) %>% 
+  rowid_to_column() %>% 
+  rename(Country = region) %>% 
+  left_join(deaths_obesity_in_2015_per_country, by = 'Country')
+
+map_obesity_deaths_per_mille <- countries2 %>% 
+  ggplot(aes(fill = Deaths_due_to_obesity_per_mille, map_id = Country)) +
+  geom_map(map = world_map) +
+  expand_limits(x = world_map$long, y = world_map$lat) +
+  coord_map("moll") +
+  scale_fill_viridis_c(na.value = "grey", option = "G", direction = -1) +
+  theme_map() +
+  labs(fill = "Deaths due to obesity (‰)") 
+
+  
+
+ggsave("plots/map_obesity_deaths_per_mille.pdf", plot = map_obesity_deaths_per_mille, width = 6, height = 4)
+
