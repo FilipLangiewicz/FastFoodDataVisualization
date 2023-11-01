@@ -64,7 +64,39 @@ deaths_obesity %>%
   ggplot(aes(x = Year, y = dead)) + 
   geom_point()
 
+# choosing colors
 
+frequency_of_visiting_fast_food_modified %>% 
+  # filter(Year == 2018) %>% 
+  ggplot(aes(y = Answer, x = PercentageShare, fill = Year)) +
+  geom_bar(stat = "identity", position = position_dodge2(width = 0.5, preserve = "single"), width = 0.5) +
+  labs(title = "How many times a week do you eat fast food?", 
+       x = "Share of respondents (%)",
+       y = element_blank()) +
+  theme_minimal() +
+  theme(plot.background = element_rect(fill = '#18191C'),
+        panel.grid.major = element_blank(),
+        title = element_text(colour = "white",
+                             family = "mono"),
+        axis.text = element_text(colour = "white",
+                                 family = "mono"),
+        legend.text = element_text(colour = "white",
+                                   family = "mono")) +
+  scale_fill_manual(values = c("#E4D00A",
+                               "#0a1ee4",
+                               "#d00ae4")) +
+  scale_y_discrete(labels = c("4 - 6",
+                              "0",
+                              "< 1",
+                              "1 - 3",
+                              "?",
+                              "7 - 9",
+                              "> 9")) +
+  geom_vline(xintercept = 0, color = "white") -> plott
+
+
+    
+  
 
   
 
