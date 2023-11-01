@@ -34,23 +34,75 @@ melted_data_good_with_logo[c(46:54),4] <- paste("Loga", "logo6.png", sep = "/")
 
 
 library("ggimage")
-
+par(bg = "cornsilk")
 melted_data_good_with_logo %>% ggplot(aes(x=Year, y=value)) +
   geom_image(aes(image=logo),size = .05) -> plot_with_logo
 
 
 melted_data_good_with_logo %>% ggplot(aes(x=Year, y=value, image=logo)) +
-  geom_line() + geom_point() + 
+  geom_line() + 
   geom_image(size = .05) +
   scale_x_continuous(breaks = seq(min(melted_data_good_with_logo$Year), max(melted_data_good_with_logo$Year), by = 1)) -> plot_with_logo_v2
 
+zdrowy_vs_fastfood <- mcZestaw %>% 
+  filter(Danie == "Zestaw") %>% 
+  select(-c(porcja,Blonnik..g.,Cukry..g.,Kwasy.tluszczowe.nasycone..g.)) %>% 
+  rows_insert(y = zdrowyObiad %>% 
+                select(-porcja))
 
-geom_line() + geom_point() + scale_x_continuous(breaks = seq(min(melted_data_good_with_logo$Year), max(melted_data_good_with_logo$Year), by = 1)) + 
-  scale_color_discrete(name = "Legenda") +
-  theme(legend.position="right")
+rownames(zdrowy_vs_fastfood) <- c("Zestaw McDonald's", "Lekki grillowany kurczak z warzywami")
+zdrowy_vs_fastfood %>% 
+  select(-"Danie") -> zdrowy_vs_fastfood
 
+#z weglami 
 
+zdrowy_vs_fastfood <- rbind(rep(0,5), zdrowy_vs_fastfood)
+zdrowy_vs_fastfood <- rbind(c(1500,200,200,200,200), zdrowy_vs_fastfood)
+colors_border=c( rgb(1,0.8,0.2,0.9 ), rgb(0.7,0.6,0.2,0.9) , rgb(0.7,0.5,0.1,0.9) )
+colors_in=c( rgb(1,1,0, 0.4), rgb(0.7,0,1 ,0.4) , rgb(0.7,0.5,0.1,0.4) )
+# custom_labels <- list(c(0, 375, 750, 1125, 1500), seq(0,60,15), 
+#                       seq(0,200,50), seq(0,60,15), seq(0,6,1.5))
+par(bg = "cornsilk")
+library(fmsb)
+radarchart( zdrowy_vs_fastfood  , axistype=1 , 
+            #custom polygon
+            pcol=colors_border , pfcol=colors_in , plwd=4 , plty=1,
+            #custom the grid
+            cglcol="black", cglty=1, axislabcol="black", cglwd=0.8,
+            #custom labels
+            vlcex=1,title = paste("Tilte tu bedzie"), caxislabels = c(0, 375, 750, 1125, 1500)
+)
+legend(x=1, y=1, legend = rownames(zdrowy_vs_fastfood[-c(1,2),]), bty = "n", pch=20 , col=colors_in , text.col = "black", cex=1.2, pt.cex=3)
 
+# bez wegli
 
+zdrowy_vs_fastfood_bez_wegli <- mcZestaw %>% 
+  filter(Danie == "Zestaw") %>% 
+  select(-c(porcja,Blonnik..g.,Cukry..g.,Kwasy.tluszczowe.nasycone..g.)) %>% 
+  rows_insert(y = zdrowyObiad %>% 
+                select(-porcja))
+
+rownames(zdrowy_vs_fastfood_bez_wegli) <- c("Zestaw McDonald's", "Lekki grillowany kurczak z warzywami")
+zdrowy_vs_fastfood_bez_wegli %>% 
+  select(-"Danie") -> zdrowy_vs_fastfood_bez_wegli
+
+zdrowy_vs_fastfood_bez_wegli %>% 
+  select(-c("Weglowodany..g.")) -> zdrowy_vs_fastfood_bez_wegli
+
+zdrowy_vs_fastfood_bez_wegli <- rbind(rep(0,4), zdrowy_vs_fastfood_bez_wegli)
+zdrowy_vs_fastfood_bez_wegli <- rbind(c(1500,56,56,56), zdrowy_vs_fastfood_bez_wegli)
+colors_border=c( rgb(1,0.8,0.2,0.9 ), rgb(0.7,0.6,0.2,0.9) , rgb(0.7,0.5,0.1,0.9) )
+colors_in=c( rgb(1,1,0, 0.4), rgb(0,0,0,0.6) , rgb(0.7,0.5,0.1,0.4) )
+# custom_labels <- list(c(0, 375, 750, 1125, 1500), seq(0,60,15), 
+#                       seq(0,200,50), seq(0,60,15), seq(0,6,1.5))
+radarchart( zdrowy_vs_fastfood_bez_wegli  , axistype=1 , 
+            #custom polygon
+            pcol=colors_border , pfcol=colors_in , plwd=4 , plty=1,
+            #custom the grid
+            cglcol="black", cglty=1, axislabcol="black", cglwd=0.8,
+            #custom labels
+            vlcex=1,title = paste("Tilte tu bedzie"), caxislabels = c(0, 375, 750, 1125, 1500)
+)
+legend(x=1, y=1, legend = rownames(zdrowy_vs_fastfood_bez_wegli[-c(1,2),]), bty = "n", pch=20 , col=colors_in , text.col = "black", cex=1.2, pt.cex=3)
 
   
