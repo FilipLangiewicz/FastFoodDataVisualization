@@ -14,6 +14,7 @@ mcZestaw <- read.csv("data/McZestawBigMac.csv")
 zdrowyObiad <- read.csv("data/zdrowyObiad.csv")
 spendings <- read.csv("data/spendings_fast_food_USA_2004_2022.csv", sep = ";")
 usa_population <- read.csv("data/population_usa.csv")
+population <- read.csv("data/world_population.csv")
 
 
 
@@ -56,6 +57,12 @@ spendings %>%
   ggplot(aes(x = Year, y = person_year_spending)) +
   geom_line()
 
+deaths_obesity %>% 
+  filter(Code == "USA") %>% 
+  mutate(dead = Deaths / (usa_population %>% 
+           filter(Year %in% 1990:2019))$Population) %>% 
+  ggplot(aes(x = Year, y = dead)) + 
+  geom_point()
 
 
 
