@@ -103,9 +103,7 @@ map_obesity_deaths_per_mille <- countries2 %>%
   coord_map("moll") +
   scale_fill_viridis_c(na.value = "grey", option = "G", direction = -1) +
   theme_map() +
-  labs(fill = "Deaths due to obesity (‰)") 
-
-  
+  labs(fill = "Deaths due to obesity (‰)", na.value = "No data")
 
 ggsave("plots/map_obesity_deaths_per_mille.pdf", plot = map_obesity_deaths_per_mille, width = 6, height = 4)
 
