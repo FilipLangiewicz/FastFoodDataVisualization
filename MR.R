@@ -83,9 +83,11 @@ map_obesity_percent <- countries %>%
   geom_map(map = world_map) +
   expand_limits(x = world_map$long, y = world_map$lat) +
   coord_map("moll") +
-  scale_fill_viridis_c(na.value = "grey", option = "G", direction = -1) +
+  scale_fill_viridis_c(na.value = "grey", option = "inferno", direction = -1) +
   theme_map() +
-  labs(fill = "Obesity among adults (%)")
+  labs(fill = "Obesity among adults (%)") +
+  theme(legend.background = element_rect(fill = "#18191C"), legend.text = element_text(color = "white"), 
+        legend.title = element_text(color = "white"))
   
   
 ggsave("plots/map_obesity_percent.pdf", plot = map_obesity_percent, width = 6, height = 4)
@@ -101,9 +103,11 @@ map_obesity_deaths_per_mille <- countries2 %>%
   geom_map(map = world_map) +
   expand_limits(x = world_map$long, y = world_map$lat) +
   coord_map("moll") +
-  scale_fill_viridis_c(na.value = "grey", option = "G", direction = -1) +
+  scale_fill_viridis_c(na.value = "grey", option = "inferno", direction = -1) +
   theme_map() +
-  labs(fill = "Deaths due to obesity (‰)", na.value = "No data")
+  labs(fill = "Deaths due to obesity (‰)", na.value = "No data") +
+  theme(legend.background = element_rect(fill = "#18191C"), legend.text = element_text(color = "white"), 
+        legend.title = element_text(color = "white"))
 
 ggsave("plots/map_obesity_deaths_per_mille.pdf", plot = map_obesity_deaths_per_mille, width = 6, height = 4)
 
