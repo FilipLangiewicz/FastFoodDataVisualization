@@ -43,6 +43,9 @@ melted_data_good_with_logo %>% ggplot(aes(x=Year, y=value, image=logo)) +
   geom_image(size = .05) +
   scale_x_continuous(breaks = seq(min(melted_data_good_with_logo$Year), max(melted_data_good_with_logo$Year), by = 1)) -> plot_with_logo_v2
 
+mcZestaw <- read.csv("data/McZestawBigMac.csv")
+zdrowyObiad <- read.csv("data/zdrowyObiad.csv")
+
 zdrowy_vs_fastfood <- mcZestaw %>% 
   filter(Danie == "Zestaw") %>% 
   select(-c(porcja,Blonnik..g.,Cukry..g.,Kwasy.tluszczowe.nasycone..g.)) %>% 
