@@ -82,7 +82,7 @@ map_obesity_percent <- countries %>%
   geom_map(map = world_map) +
   expand_limits(x = world_map$long, y = world_map$lat) +
   coord_map("moll") +
-  scale_fill_gradient2(na.value = "grey", mid = "#FFD700", high = "red", low = "#FFE4B5", midpoint = 15) +
+  scale_fill_gradient2(na.value = "grey", mid = "#FFD700", high = "red", low = "#FFE4B5", midpoint = 10) +
   theme_map() +
   labs(fill = "Obesity among adults (%)") +
   theme(legend.background = element_rect(fill = "#18191C"), legend.text = element_text(color = "white"), 
