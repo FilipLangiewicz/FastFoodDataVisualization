@@ -37,9 +37,9 @@ library("ggimage")
 
 melted_data_good_with_logo %>% ggplot(aes(x=Year, y=value)) +
   geom_image(aes(image=logo),size = .05) -> plot_with_logo
-
+par(bg="#18191C")
 melted_data_good_with_logo %>% ggplot(aes(x=Year, y=value, image=logo)) +
-  geom_line(c) + geom_point() + 
+  geom_line(color="white") + geom_point() + 
   geom_image(size = .05) +
   scale_x_continuous(breaks = seq(min(melted_data_good_with_logo$Year), max(melted_data_good_with_logo$Year), by = 1)) -> plot_with_logo_v2
 
@@ -62,8 +62,8 @@ colnames(zdrowy_vs_fastfood) <- c("Energy","Fat","Carbohydrates", "Protein", "Sa
 
 zdrowy_vs_fastfood <- rbind(rep(0,5), zdrowy_vs_fastfood)
 zdrowy_vs_fastfood <- rbind(c(2000,70,260,100,6), zdrowy_vs_fastfood)
-colors_border=c( rgb(1,1,0.2,0.9 ), rgb(0.4,0,0.6 ,1) , rgb(0.7,0.5,0.1,0.9) )
-colors_in=c( rgb(1,1,0, 0.4), rgb(0.3,0,0.6,0.7) , rgb(0.7,0.5,0.1,0.4) )
+colors_border=c(rgb(1,1,0.2,0.9 ),rgb(0.4,0,0.6 ,1))
+colors_in=c(rgb(1,1,0, 0.4),rgb(189, 0, 23,0.7))
 labelColors <- rep("white", ncol(zdrowy_vs_fastfood))
 # custom_labels <- list(c(0, 375, 750, 1125, 1500), seq(0,60,15), 
 #                       seq(0,200,50), seq(0,60,15), seq(0,6,1.5))
