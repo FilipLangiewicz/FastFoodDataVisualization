@@ -133,7 +133,7 @@ frequency_of_visiting_fast_food_modified %>%
         legend.position = "none")        
 
 # Maciek's plot about number of restaurants
-
+library("ggimage")
 
 melted_data_good_with_logo[c(19:27),4] <- paste("Loga", "logo30.png", sep = "/")
 melted_data_good_with_logo[c(10:18),4] <- paste("Loga", "logo20.png", sep = "/")
@@ -143,11 +143,13 @@ melted_data_good_with_logo[c(37:45),4] <- paste("Loga", "logo50.png", sep = "/")
 melted_data_good_with_logo[c(46:54),4] <- paste("Loga", "logo60.png", sep = "/")
 
 
-melted_data_good_with_logo %>% 
+melted_data_good_with_logo %>%
+  filter(variable != "Domino.s.Pizza" & variable != "PizzaHut") %>% # without pizzas
   ggplot(aes(x=Year, y=value, image=logo)) +
   geom_line(colour = "#BD0017",
-            linewidth = 3) + 
-  geom_point() + 
+            linewidth = 1) + 
+  geom_point(size = 15,
+             colour = "white") + 
   geom_image(size = .10) +
   scale_x_continuous(breaks = seq(min(melted_data_good_with_logo$Year), 
                                   max(melted_data_good_with_logo$Year), 
