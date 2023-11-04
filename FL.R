@@ -5,6 +5,7 @@ library(stringr)
 library(forcats)
 library(showtext)
 library(scales)
+library(sysfonts)
 library(extrafont)
 font_add("Sanchez", regular = "./poster/font/Sanchez/Sanchez-Regular.ttf")
 
@@ -131,6 +132,50 @@ frequency_of_visiting_fast_food_modified %>%
         panel.grid.minor.x = element_blank(),
         legend.position = "none")        
 
+# Maciek's plot about number of restaurants
+
+
+melted_data_good_with_logo[c(19:27),4] <- paste("Loga", "logo30.png", sep = "/")
+melted_data_good_with_logo[c(10:18),4] <- paste("Loga", "logo20.png", sep = "/")
+melted_data_good_with_logo[c(1:9),4] <- paste("Loga", "logo10.png", sep = "/")
+melted_data_good_with_logo[c(28:36),4] <- paste("Loga", "logo40.png", sep = "/")
+melted_data_good_with_logo[c(37:45),4] <- paste("Loga", "logo50.png", sep = "/")
+melted_data_good_with_logo[c(46:54),4] <- paste("Loga", "logo60.png", sep = "/")
+
+
+melted_data_good_with_logo %>% 
+  ggplot(aes(x=Year, y=value, image=logo)) +
+  geom_line(colour = "#BD0017",
+            linewidth = 3) + 
+  geom_point() + 
+  geom_image(size = .10) +
+  scale_x_continuous(breaks = seq(min(melted_data_good_with_logo$Year), 
+                                  max(melted_data_good_with_logo$Year), 
+                                  by = 1)) +
+  scale_y_continuous(limits = c(0, NA)) +
+  theme_minimal() +
+  theme(plot.background = element_rect(fill = '#18191C'),
+        plot.margin = margin(t = 10, r = 10, b = 5, l = 10),
+        plot.title = element_text(colour = "white",
+                                  family = "Sanchez",
+                                  size = 30,
+                                  margin = margin(t = 10, b = 30),
+                                  hjust = 0),
+        axis.title.x = element_text(colour = "white",
+                                    family = "Sanchez",
+                                    size = 16,
+                                    margin = margin(t = 10, b = 10)),
+        axis.text = element_text(colour = "white",
+                                 family = "Sanchez",
+                                 size = 15,
+                                 face = "bold"),
+        axis.text.y = element_text(hjust = 1),
+        panel.grid.major.y = element_line(),
+        panel.grid.minor.y = element_blank(),
+        panel.grid.major.x = element_line(),
+        panel.grid.minor.x = element_blank(),
+        legend.position = "none")  
+  
 
     
   
