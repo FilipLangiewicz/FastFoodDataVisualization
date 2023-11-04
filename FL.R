@@ -3,6 +3,13 @@ library(tidyr)
 library(ggplot2)
 library(stringr)
 library(forcats)
+library(showtext)
+library(scales)
+
+font_add_google("Schoolbell", "bell")
+font_add_google("Sanchez", "sanc")
+showtext_auto()
+
 
 
 burger_king_menu <- read.csv("data/burger-king-menu.csv")
@@ -67,18 +74,6 @@ deaths_obesity %>%
 
 # barplot
 
-
-dietary_habits <- read.csv("data/Nutrition__Physical_Activity__and_Obesity.csv")
-
-df <- dietary_habits %>% 
-  group_by(Question) %>% 
-  distinct(Question)
-
-population <- read.csv("data/world_population.csv")
-
-types_of_mortality_vs_fried_food_consumption_frequency <- read.csv("data/Types of Mortality vs. Fried Food consumption Frequency-mean.csv")
-fried_food_consumption_and_mortality <- read.csv("data/Fried food consumption and mortality_ prospective cohort study.csv")
-
 frequency_of_visiting_fast_food <- read.csv("data/average-fast-food-consumption-per-week-in-2016-2018.csv", sep = ";")
 
 frequency_of_visiting_fast_food_modified <- frequency_of_visiting_fast_food %>% 
@@ -101,32 +96,42 @@ frequency_of_visiting_fast_food_modified %>%
                              TRUE ~ "Z")) %>% 
   mutate(Answer = fct_reorder(Answer, pozycja)) %>% 
   ggplot(aes(y = Answer, x = PercentageShare, fill = Year)) +
-  geom_bar(stat = "identity", position = position_dodge2(width = 0.5, preserve = "single"), width = 0.5) +
-  labs(title = "How many times a week do you eat fast food?", 
-       x = "Share of respondents (%)",
+  geom_col(width = 0.7) +
+  labs(title = "How many times a week do we eat fast food?", 
+       x = "Share of respondents",
        y = element_blank(),
        legend = element_blank()) +
+  scale_fill_manual(values = c("#E4D00A")) +
+  scale_x_continuous(expand = expansion(c(0,0), c(0.3, 3)),
+                     breaks = seq(0, 30, by = 5),
+                     labels = percent_format(scale = 1)) +
+  scale_y_discrete(labels = c("More than 9",
+                              "7 to 9",
+                              "4 to 6",
+                              "1 to 3",
+                              "Less than 1",
+                              "0")) +
   theme_minimal() +
   theme(plot.background = element_rect(fill = '#18191C'),
-        panel.grid.major = element_blank(),
-        title = element_text(colour = "white",
-                             family = "mono"),
+        plot.margin = margin(t = 10, r = 10, b = 5, l = 10),
+        plot.title = element_text(colour = "white",
+                             family = "sanc",
+                             size = 30,
+                             margin = margin(t = 10, b = 30),
+                             hjust = 0),
+        axis.title.x = element_text(colour = "white",
+                                    family = "sanc",
+                                    size = 16,
+                                    margin = margin(t = 10, b = 10)),
         axis.text = element_text(colour = "white",
-                                 family = "mono",
+                                 family = "sanc",
                                  size = 15,
                                  face = "bold"),
+        axis.text.y = element_text(hjust = 1),
+        panel.grid.major.y = element_blank(),
         panel.grid.major.x = element_line(),
-        
-        legend.position = "none") +
-  scale_fill_manual(values = c("#E4D00A")) +
-  scale_x_continuous(expand = expansion(c(0,0), c(0, 3)))
-x# scale_y_discrete(labels = c("4 - 6",
-  #                             "0",
-  #                             "< 1",
-  #                             "1 - 3",
-  #                             "7 - 9",
-  #                             "> 9")) +
-   
+        panel.grid.minor.x = element_blank(),
+        legend.position = "none")        
 
 
     
