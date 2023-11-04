@@ -5,10 +5,8 @@ library(stringr)
 library(forcats)
 library(showtext)
 library(scales)
-
-font_add_google("Schoolbell", "bell")
-font_add_google("Sanchez", "sanc")
-showtext_auto()
+library(extrafont)
+font_add("Sanchez", regular = "./poster/font/Sanchez/Sanchez-Regular.ttf")
 
 
 
@@ -105,26 +103,26 @@ frequency_of_visiting_fast_food_modified %>%
   scale_x_continuous(expand = expansion(c(0,0), c(0.3, 3)),
                      breaks = seq(0, 30, by = 5),
                      labels = percent_format(scale = 1)) +
-  scale_y_discrete(labels = c("More than 9",
+  scale_y_discrete(labels = rev(c("More than 9",
                               "7 to 9",
                               "4 to 6",
                               "1 to 3",
                               "Less than 1",
-                              "0")) +
+                              "0"))) +
   theme_minimal() +
   theme(plot.background = element_rect(fill = '#18191C'),
         plot.margin = margin(t = 10, r = 10, b = 5, l = 10),
         plot.title = element_text(colour = "white",
-                             family = "sanc",
+                             family = "Sanchez",
                              size = 30,
                              margin = margin(t = 10, b = 30),
                              hjust = 0),
         axis.title.x = element_text(colour = "white",
-                                    family = "sanc",
+                                    family = "Sanchez",
                                     size = 16,
                                     margin = margin(t = 10, b = 10)),
         axis.text = element_text(colour = "white",
-                                 family = "sanc",
+                                 family = "Sanchez",
                                  size = 15,
                                  face = "bold"),
         axis.text.y = element_text(hjust = 1),
