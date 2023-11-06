@@ -133,11 +133,12 @@ frequency_of_visiting_fast_food_modified %>%
         legend.position = "none")        
 
 # Maciek's plot about number of restaurants
+
 library("ggimage")
 
 melted_data_good_with_logo[c(19:27),4] <- paste("Loga", "logo30.png", sep = "/")
 melted_data_good_with_logo[c(10:18),4] <- paste("Loga", "logo20.png", sep = "/")
-melted_data_good_with_logo[c(1:9),4] <- paste("Loga", "logo10.png", sep = "/")
+melted_data_good_with_logo[c(1:9),4] <- paste("Loga", "logo10png", sep = "/")
 melted_data_good_with_logo[c(28:36),4] <- paste("Loga", "logo40.png", sep = "/")
 melted_data_good_with_logo[c(37:45),4] <- paste("Loga", "logo50.png", sep = "/")
 melted_data_good_with_logo[c(46:54),4] <- paste("Loga", "logo60.png", sep = "/")
@@ -146,15 +147,24 @@ melted_data_good_with_logo[c(46:54),4] <- paste("Loga", "logo60.png", sep = "/")
 melted_data_good_with_logo %>%
   filter(variable != "Domino.s.Pizza" & variable != "PizzaHut") %>% # without pizzas
   ggplot(aes(x=Year, y=value, image=logo)) +
-  geom_line(colour = "#BD0017",
-            linewidth = 1) + 
-  geom_point(size = 15,
-             colour = "white") + 
+  geom_line(aes(colour = variable),
+            linewidth = 2) + 
+  geom_point(aes(colour = variable),
+             size = 15,
+             shape = 21,
+             fill = "white") + 
   geom_image(size = .10) +
   scale_x_continuous(breaks = seq(min(melted_data_good_with_logo$Year), 
                                   max(melted_data_good_with_logo$Year), 
                                   by = 1)) +
   scale_y_continuous(limits = c(0, NA)) +
+  scale_colour_manual(values = c("Subway" = "#008C15",
+                        "McDonald.s" = "#FFC72C",
+                        "KFC" = "#F40027",
+                        "Burger.King" = "#0033A0")) +
+  labs(title = "Number of major fast food restaurants in recent years",
+       x = "Year",
+       y = "Number of restaurants") +
   theme_minimal() +
   theme(plot.background = element_rect(fill = '#18191C'),
         plot.margin = margin(t = 10, r = 10, b = 5, l = 10),
@@ -163,7 +173,7 @@ melted_data_good_with_logo %>%
                                   size = 30,
                                   margin = margin(t = 10, b = 30),
                                   hjust = 0),
-        axis.title.x = element_text(colour = "white",
+        axis.title = element_text(colour = "white",
                                     family = "Sanchez",
                                     size = 16,
                                     margin = margin(t = 10, b = 10)),
