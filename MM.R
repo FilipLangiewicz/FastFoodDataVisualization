@@ -62,8 +62,8 @@ colnames(zdrowy_vs_fastfood) <- c("Energy","Fat","Carbohydrates", "Protein", "Sa
 
 zdrowy_vs_fastfood <- rbind(rep(0,5), zdrowy_vs_fastfood)
 zdrowy_vs_fastfood <- rbind(c(2000,70,260,100,6), zdrowy_vs_fastfood)
-colors_border=c(rgb(1,1,0.2,0.9 ),rgb(0.4,0,0.6 ,1))
-colors_in=c(rgb(1,1,0, 0.4),rgb(0.4, 0, 0.6,0.7))
+colors_border=c(rgb(1,1,0.2,0.9 ),rgb(0.3984375,0,0 ,1))
+colors_in=c(rgb(1,1,0, 0.4),rgb(0.3984375, 0, 0,0.7))
 labelColors <- rep("white", ncol(zdrowy_vs_fastfood))
 # custom_labels <- list(c(0, 375, 750, 1125, 1500), seq(0,60,15), 
 #                       seq(0,200,50), seq(0,60,15), seq(0,6,1.5))
