@@ -6,6 +6,7 @@ library(ggthemr)
 library(tidyverse)
 library(ggthemes)
 library(openxlsx)
+library(RColorBrewer)
 
 
 burger_king_menu <- read.csv("data/burger-king-menu.csv")
@@ -82,7 +83,7 @@ map_obesity_percent <- countries %>%
   geom_map(map = world_map) +
   expand_limits(x = world_map$long, y = world_map$lat) +
   coord_map("moll") +
-  scale_fill_gradient2(na.value = "grey", mid = "#FFD700", high = "red", low = "#FFE4B5", midpoint = 10) +
+  scale_fill_gradient2(na.value = "grey", mid = "#dc143c",high = "#660000",low = "#fff323", midpoint = 40) +
   theme_map() +
   labs(fill = "Obesity among adults (%)") +
   theme(legend.background = element_rect(fill = "#18191C"), legend.text = element_text(color = "white"), 
@@ -98,14 +99,14 @@ countries2= world_map %>%
   rename(Country = region) %>% 
   left_join(deaths_obesity_in_2015_per_country, by = 'Country')
 
-map_obesity_deaths_per_mille <- countries2 %>% 
+  map_obesity_deaths_per_mille <- countries2 %>% 
   ggplot(aes(fill = Deaths_due_to_obesity_per_mille, map_id = Country)) +
   geom_map(map = world_map) +
   expand_limits(x = world_map$long, y = world_map$lat) +
   coord_map("moll") +
-  scale_fill_gradient2(na.value = "grey", mid = "#FFD700", high = "red",low = "#FFE4B5", midpoint = 1.5) +
+  scale_fill_gradient2(na.value = "grey", mid = "#ff5403",high = "#660000",low = "#fff323", midpoint = 1.5) +
   theme_map() +
-  labs(fill = "Deaths due to obesity (‰)", na.value = "No data") +
+  labs(fill = "Deaths due to obesity (‰)") +
   theme(legend.background = element_rect(fill = "#18191C"), legend.text = element_text(color = "white"), 
         legend.title = element_text(color = "white"),
         plot.background = element_rect(fill = "#18191C", colour = "#18191C")
