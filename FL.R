@@ -136,12 +136,12 @@ frequency_of_visiting_fast_food_modified %>%
 
 library("ggimage")
 
-melted_data_good_with_logo[c(19:27),4] <- paste("Loga", "logo30.png", sep = "/")
-melted_data_good_with_logo[c(10:18),4] <- paste("Loga", "logo20.png", sep = "/")
+melted_data_good_with_logo[c(19:27),4] <- paste("Loga", "logo300.png", sep = "/")
+melted_data_good_with_logo[c(10:18),4] <- paste("Loga", "logo200.png", sep = "/")
 melted_data_good_with_logo[c(1:9),4] <- paste("Loga", "logo10png", sep = "/")
 melted_data_good_with_logo[c(28:36),4] <- paste("Loga", "logo40.png", sep = "/")
-melted_data_good_with_logo[c(37:45),4] <- paste("Loga", "logo50.png", sep = "/")
-melted_data_good_with_logo[c(46:54),4] <- paste("Loga", "logo60.png", sep = "/")
+melted_data_good_with_logo[c(37:45),4] <- paste("Loga", "logo500.png", sep = "/")
+melted_data_good_with_logo[c(46:54),4] <- paste("Loga", "logo600.png", sep = "/")
 
 
 melted_data_good_with_logo %>%
@@ -169,16 +169,16 @@ melted_data_good_with_logo %>%
   theme(plot.background = element_rect(fill = '#18191C'),
         plot.margin = margin(t = 10, r = 10, b = 5, l = 10),
         plot.title = element_text(colour = "white",
-                                  family = "Sanchez",
+                                  # family = "Sanchez",
                                   size = 30,
                                   margin = margin(t = 10, b = 30),
                                   hjust = 0),
         axis.title = element_text(colour = "white",
-                                    family = "Sanchez",
+                                    # family = "Sanchez",
                                     size = 16,
                                     margin = margin(t = 10, b = 10)),
         axis.text = element_text(colour = "white",
-                                 family = "Sanchez",
+                                 # family = "Sanchez",
                                  size = 15,
                                  face = "bold"),
         axis.text.y = element_text(hjust = 1),
