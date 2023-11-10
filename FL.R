@@ -143,21 +143,28 @@ melted_data_good_with_logo[c(28:36),4] <- paste("Loga", "logo40.png", sep = "/")
 melted_data_good_with_logo[c(37:45),4] <- paste("Loga", "logo500.png", sep = "/")
 melted_data_good_with_logo[c(46:54),4] <- paste("Loga", "logo600.png", sep = "/")
 
+melted_data_good_with_logo[c(37:38),4] <- paste("Loga", "nothing.png", sep = "/")
+melted_data_good_with_logo[45,4] <- paste("Loga", "nothing.png", sep = "/")
+
+melted_data_good_with_logo[c(37:38),4] <- paste("Loga", "logo502.png", sep = "/")
+melted_data_good_with_logo[45,4] <- paste("Loga", "logo502.png", sep = "/")
+
+
 
 melted_data_good_with_logo %>%
   filter(variable != "Domino.s.Pizza" & variable != "PizzaHut") %>% # without pizzas
-  ggplot(aes(x=Year, y=value, image=logo)) +
+  ggplot(aes(x=Year, y=value)) +
   geom_line(aes(colour = variable),
             linewidth = 2) + 
   geom_point(aes(colour = variable),
-             size = 15,
+             size = 25.5, #22.5,
              shape = 21,
              fill = "white") + 
-  geom_image(size = .10) +
+  geom_image(aes(image = logo), size = .165) + #.15) +
   scale_x_continuous(breaks = seq(min(melted_data_good_with_logo$Year), 
                                   max(melted_data_good_with_logo$Year), 
                                   by = 1)) +
-  scale_y_continuous(limits = c(0, NA)) +
+  scale_y_continuous(limits = c(0, 47000)) +
   scale_colour_manual(values = c("Subway" = "#008C15",
                         "McDonald.s" = "#FFC72C",
                         "KFC" = "#F40027",
