@@ -136,18 +136,18 @@ frequency_of_visiting_fast_food_modified %>%
 
 library("ggimage")
 
-melted_data_good_with_logo[c(19:27),4] <- paste("Loga", "logo300.png", sep = "/")
-melted_data_good_with_logo[c(10:18),4] <- paste("Loga", "logo200.png", sep = "/")
-melted_data_good_with_logo[c(1:9),4] <- paste("Loga", "logo10png", sep = "/")
-melted_data_good_with_logo[c(28:36),4] <- paste("Loga", "logo40.png", sep = "/")
-melted_data_good_with_logo[c(37:45),4] <- paste("Loga", "logo500.png", sep = "/")
-melted_data_good_with_logo[c(46:54),4] <- paste("Loga", "logo600.png", sep = "/")
+melted_data_good_with_logo[c(19:27),4] <- paste("logos", "logo300.png", sep = "/")
+melted_data_good_with_logo[c(10:18),4] <- paste("logos", "logo200.png", sep = "/")
+melted_data_good_with_logo[c(1:9),4] <- paste("logos", "logo10png", sep = "/")
+melted_data_good_with_logo[c(28:36),4] <- paste("logos", "logo40.png", sep = "/")
+melted_data_good_with_logo[c(37:45),4] <- paste("logos", "logo500.png", sep = "/")
+melted_data_good_with_logo[c(46:54),4] <- paste("logos", "logo600.png", sep = "/")
 
-melted_data_good_with_logo[c(37:38),4] <- paste("Loga", "nothing.png", sep = "/")
-melted_data_good_with_logo[45,4] <- paste("Loga", "nothing.png", sep = "/")
+melted_data_good_with_logo[c(37:38),4] <- paste("logos", "nothing.png", sep = "/")
+melted_data_good_with_logo[45,4] <- paste("logos", "nothing.png", sep = "/")
 
-melted_data_good_with_logo[c(37:38),4] <- paste("Loga", "logo502.png", sep = "/")
-melted_data_good_with_logo[45,4] <- paste("Loga", "logo502.png", sep = "/")
+melted_data_good_with_logo[c(37:38),4] <- paste("logos", "logo502.png", sep = "/")
+melted_data_good_with_logo[45,4] <- paste("logos", "logo502.png", sep = "/")
 
 
 
