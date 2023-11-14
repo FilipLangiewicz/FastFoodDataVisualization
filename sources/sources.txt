@@ -8,3 +8,5 @@ https://www.globaldata.com/data-insights/foodservice/mcdonalds-number-of-restaur
 https://www.statista.com/statistics/256793/kfc-restaurants-worldwide-by-geographic-region/
 https://www.statista.com/statistics/222981/number-of-burger-king-restaurants-worldwide/
 https://www.statista.com/statistics/469379/number-of-subway-restaurants-worldwide/
+https://www.statista.com/statistics/256828/pizza-hut-restaurants-worldwide/
+https://www.statista.com/statistics/207118/number-of-dominos-pizza-stores-worldwide/
