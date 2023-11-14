@@ -4,3 +4,7 @@ https://ourworldindata.org/grapher/deaths-due-to-obesity?tab=table&fbclid=IwAR34
 https://www.statista.com/statistics/561297/us-average-fast-food-consumption-per-week/
 https://www.kaggle.com/datasets/amanarora/obesity-among-adults-by-country-19752016
 https://www.kaggle.com/datasets/iamsouravbanerjee/world-population-dataset/data
+https://www.globaldata.com/data-insights/foodservice/mcdonalds-number-of-restaurants-globally/#pg-top
+https://www.statista.com/statistics/256793/kfc-restaurants-worldwide-by-geographic-region/
+https://www.statista.com/statistics/222981/number-of-burger-king-restaurants-worldwide/
+https://www.statista.com/statistics/469379/number-of-subway-restaurants-worldwide/

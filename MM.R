@@ -25,12 +25,12 @@ melted_data_good %>%
   mutate(logo = 0) -> melted_data_good_with_logo
 melted_data_good_with_logo$logo <- as.character(melted_data_good_with_logo$logo)
 
-melted_data_good_with_logo[c(19:27),4] <- paste("Loga", "logo3.png", sep = "/")
-melted_data_good_with_logo[c(10:18),4] <- paste("Loga", "logo2.png", sep = "/")
-melted_data_good_with_logo[c(1:9),4] <- paste("Loga", "logo1.png", sep = "/")
-melted_data_good_with_logo[c(28:36),4] <- paste("Loga", "logo4.png", sep = "/")
-melted_data_good_with_logo[c(37:45),4] <- paste("Loga", "logo5.png", sep = "/")
-melted_data_good_with_logo[c(46:54),4] <- paste("Loga", "logo6.png", sep = "/")
+melted_data_good_with_logo[c(19:27),4] <- paste("logos", "logo3.png", sep = "/")
+melted_data_good_with_logo[c(10:18),4] <- paste("logos", "logo2.png", sep = "/")
+melted_data_good_with_logo[c(1:9),4] <- paste("logos", "logo1.png", sep = "/")
+melted_data_good_with_logo[c(28:36),4] <- paste("logos", "logo4.png", sep = "/")
+melted_data_good_with_logo[c(37:45),4] <- paste("logos", "logo5.png", sep = "/")
+melted_data_good_with_logo[c(46:54),4] <- paste("logos", "logo6.png", sep = "/")
 
 
 library("ggimage")
