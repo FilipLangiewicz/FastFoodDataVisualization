@@ -68,30 +68,60 @@ obesity_in_2015_per_country <- obesity %>%
 # wczytuję ramkę z poprawionymi ręcznie nazwami krajów
 
 obesity_in_2015_per_country <- read.xlsx("data/obesity_in_2015_per_country.xlsx")
+obesity_in_2015_per_country <- obesity_in_2015_per_country %>% 
+  mutate(Discrete_obesity_percent = 
+         factor(case_when(
+           Obesity_percent <= 10 ~ '(0, 10]',
+           Obesity_percent <= 20 & Obesity_percent > 10 ~ '(10, 20]',
+           Obesity_percent <= 30 & Obesity_percent > 20 ~ '(20, 30]',
+           Obesity_percent <= 40 & Obesity_percent > 30 ~ '(30, 40]',
+           Obesity_percent <= 50 & Obesity_percent > 40 ~ '(40, 50]',
+           Obesity_percent > 50 ~ '(50, 60]',
+           exclude = NULL)))
+
+deaths_obesity_in_2015_per_country <- deaths_obesity_in_2015_per_country %>% 
+  mutate(Discrete_deaths_due_to_obesity_permille = 
+           factor(case_when(
+                     Deaths_due_to_obesity_per_mille <= 0.5 ~ '(0, 0.5]',
+                     Deaths_due_to_obesity_per_mille <= 1 & Deaths_due_to_obesity_per_mille > 0.5 ~ '(0.5, 1]',
+                     Deaths_due_to_obesity_per_mille <= 1.5 & Deaths_due_to_obesity_per_mille > 1 ~ '(1, 1.5]',
+                     Deaths_due_to_obesity_per_mille <= 2 & Deaths_due_to_obesity_per_mille > 1.5 ~ '(1.5, 2]',
+                     Deaths_due_to_obesity_per_mille <= 2.5  & Deaths_due_to_obesity_per_mille > 2 ~ '(2, 2.5]',
+                     Deaths_due_to_obesity_per_mille <= 3 & Deaths_due_to_obesity_per_mille > 2.5 ~ '(2.5, 3]',
+           )))
+
 
 world_map = map_data("world") %>% 
   filter(! long > 180)
 
-countries = world_map %>% 
+countries <- world_map %>% 
   distinct(region) %>% 
   rowid_to_column() %>% 
   rename(Country = region) %>% 
-  left_join(obesity_in_2015_per_country, by = 'Country')
+  left_join(obesity_in_2015_per_country, by = 'Country') 
+           
 
 map_obesity_percent <- countries %>% 
-  ggplot(aes(fill = Obesity_percent, map_id = Country)) +
+  ggplot(aes(fill = Discrete_obesity_percent, map_id = Country)) +
   geom_map(map = world_map) +
-  expand_limits(x = world_map$long, y = world_map$lat) +
+  expand_limits(x = c(-190,190), y = world_map$lat) +
   coord_map("moll") +
-  scale_fill_gradient2(na.value = "grey", mid = "#dc143c",high = "#660000",low = "#fff323", midpoint = 40) +
-  theme_map() +
+  scale_fill_manual(values = c( "#fff323", "#FFBB13", "#FF9109", "#C83807", "#921B07", "#660000")) +
+  theme_minimal() +
+  guides(fill = guide_legend(reverse = TRUE)) +
   labs(fill = "Obesity among adults (%)") +
-  theme(legend.background = element_rect(fill = "#18191C"), legend.text = element_text(color = "white"), 
+  theme(legend.background = element_rect(fill = "#18191C", colour = "#18191C"), legend.text = element_text(color = "white"), 
         legend.title = element_text(color = "white"),
-        plot.background = element_rect(fill = "#18191C", colour="#18191C"))
+        plot.background = element_rect(fill = "#18191C", colour="#18191C"),
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.x = element_blank(),
+        axis.text.y = element_blank(),
+        line = element_line(linewidth = 0.01, colour = "grey")
+        )
   
   
-ggsave("plots/map_obesity_percent.pdf", plot = map_obesity_percent, width = 6, height = 4)
+ggsave("plots/discrete_map_obesity_percent.pdf", plot = map_obesity_percent, width = 30, height = 20)
 
 countries2= world_map %>% 
   distinct(region) %>% 
@@ -99,18 +129,25 @@ countries2= world_map %>%
   rename(Country = region) %>% 
   left_join(deaths_obesity_in_2015_per_country, by = 'Country')
 
-  map_obesity_deaths_per_mille <- countries2 %>% 
-  ggplot(aes(fill = Deaths_due_to_obesity_per_mille, map_id = Country)) +
+
+map_obesity_deaths_per_mille <- countries2 %>% 
+  ggplot(aes(fill = Discrete_deaths_due_to_obesity_permille, map_id = Country)) +
   geom_map(map = world_map) +
-  expand_limits(x = world_map$long, y = world_map$lat) +
+  expand_limits(x = c(-190,190), y = world_map$lat) +
   coord_map("moll") +
-  scale_fill_gradient2(na.value = "grey", mid = "#ff5403",high = "#660000",low = "#fff323", midpoint = 1.5) +
-  theme_map() +
+  scale_fill_manual(values = c( "#fff323", "#FFBB13", "#FF9109", "#C83807", "#921B07", "#660000"), na.value = "grey") +
+  theme_minimal() +
+  guides(fill = guide_legend(reverse = TRUE)) +
   labs(fill = "Deaths due to obesity (‰)") +
-  theme(legend.background = element_rect(fill = "#18191C"), legend.text = element_text(color = "white"), 
+  theme(legend.background = element_rect(fill = "#18191C", color = "#18191C"), legend.text = element_text(color = "white"), 
         legend.title = element_text(color = "white"),
-        plot.background = element_rect(fill = "#18191C", colour = "#18191C")
+        plot.background = element_rect(fill = "#18191C", colour = "#18191C"),
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        axis.text.x = element_blank(),
+        axis.text.y = element_blank(),
+        line = element_line(linewidth = 0.01, colour = "grey")
           )
 
-ggsave("plots/map_obesity_deaths_per_mille.pdf", plot = map_obesity_deaths_per_mille, width = 6, height = 4)
+ggsave("plots/discrete_map_obesity_deaths_per_mille.pdf", plot = map_obesity_deaths_per_mille, width = 30,height = 20)
 
