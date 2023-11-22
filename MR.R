@@ -81,12 +81,13 @@ obesity_in_2015_per_country <- read.xlsx("data/obesity_in_2015_per_country.xlsx"
 obesity_in_2015_per_country <- obesity_in_2015_per_country %>% 
   mutate(Discrete_obesity_percent = 
          factor(case_when(
-           Obesity_percent <= 10 ~ '(0, 10]',
-           Obesity_percent <= 20 & Obesity_percent > 10 ~ '(10, 20]',
-           Obesity_percent <= 30 & Obesity_percent > 20 ~ '(20, 30]',
-           Obesity_percent <= 40 & Obesity_percent > 30 ~ '(30, 40]',
-           Obesity_percent <= 50 & Obesity_percent > 40 ~ '(40, 50]',
-           Obesity_percent > 50 ~ '(50, 60]')))
+           Obesity_percent <= 10 ~ '6',
+           Obesity_percent <= 20 & Obesity_percent > 10 ~ '5',
+           Obesity_percent <= 30 & Obesity_percent > 20 ~ '4',
+           Obesity_percent <= 40 & Obesity_percent > 30 ~ '3',
+           Obesity_percent <= 50 & Obesity_percent > 40 ~ '2',
+           Obesity_percent > 50 ~ '1'),
+           labels = c('(50, 60] %', '(40, 50] %', '(30, 40] %', '(20, 30] %','(10, 20] %', '(0, 10] %')))
 
 
 countries <- world_map %>% 
@@ -95,29 +96,29 @@ countries <- world_map %>%
   rename(Country = region) %>% 
   left_join(obesity_in_2015_per_country, by = 'Country') 
            
-
-map_obesity_percent <- countries %>% 
+discrete_map_obesity_percent <- countries %>% 
   ggplot(aes(fill = Discrete_obesity_percent, map_id = Country)) +
   geom_map(map = world_map) +
-  expand_limits(x = c(-190,190), y = world_map$lat) +
+  expand_limits(x = c(-185,185), y = world_map$lat) +
   coord_map("moll") +
-  scale_fill_manual(values = c( "#fff323", "#FFBB13", "#FF9109", "#C83807", "#921B07", "#660000"),
+  scale_fill_manual(values = c("#660000", "#921B07", "#C83807", "#FF9109", "#FFBB13", "#fff323"),
                     na.value = "grey") +
   theme_minimal() +
-  labs(fill = "Obesity among adults (‰)") +
-  guides(fill = guide_legend(reverse = FALSE)) +
+  labs(title = "Obesity among adults in the population") +
   theme(legend.background = element_rect(fill = "#18191C", colour = "#18191C"), 
         legend.text = element_text(color = "white"),
+        plot.title = element_text(color = "white", hjust = 0.5),
         plot.background = element_rect(fill = "#18191C", colour="#18191C"),
-        legend.position = c(1, 1), legend.justification = c(1, 1),
+        legend.position = c(0.14, 0.5),
         axis.title.x = element_blank(),
         axis.title.y = element_blank(),
         axis.text.x = element_blank(),
         axis.text.y = element_blank(),
-        line = element_line(linewidth = 0.5, colour = "white")
+        line = element_line(linewidth = 0.5, colour = "white"),
+        legend.title = element_blank()
         )
 
-ggsave("plots/discrete_map_obesity_percent.pdf", plot = map_obesity_percent, width = 15, height = 10)
+ggsave("plots/discrete_map_obesity_percent.pdf", plot = discrete_map_obesity_percent, width = 15, height = 10)
 
 
 
@@ -142,13 +143,13 @@ deaths_obesity_in_2015_per_country <- read.xlsx("data/deaths_obesity_in_2015_per
 deaths_obesity_in_2015_per_country <- deaths_obesity_in_2015_per_country %>% 
   mutate(Discrete_deaths_due_to_obesity_permille = 
            factor(case_when(
-             Deaths_due_to_obesity_per_mille <= 3 & Deaths_due_to_obesity_per_mille > 2.5 ~ '(2.5, 3]',
-             Deaths_due_to_obesity_per_mille <= 2.5  & Deaths_due_to_obesity_per_mille > 2 ~ '(2, 2.5]',
-             Deaths_due_to_obesity_per_mille <= 2 & Deaths_due_to_obesity_per_mille > 1.5 ~ '(1.5, 2]',
-             Deaths_due_to_obesity_per_mille <= 1.5 & Deaths_due_to_obesity_per_mille > 1 ~ '(1, 1.5]',
-             Deaths_due_to_obesity_per_mille <= 1 & Deaths_due_to_obesity_per_mille > 0.5 ~ '(0.5, 1]',
-             Deaths_due_to_obesity_per_mille <= 0.5 ~ '(0, 0.5]',
-           )))
+             Deaths_due_to_obesity_per_mille <= 3 & Deaths_due_to_obesity_per_mille > 2.5 ~ '1',
+             Deaths_due_to_obesity_per_mille <= 2.5  & Deaths_due_to_obesity_per_mille > 2 ~ '2',
+             Deaths_due_to_obesity_per_mille <= 2 & Deaths_due_to_obesity_per_mille > 1.5 ~ '3',
+             Deaths_due_to_obesity_per_mille <= 1.5 & Deaths_due_to_obesity_per_mille > 1 ~ '4',
+             Deaths_due_to_obesity_per_mille <= 1 & Deaths_due_to_obesity_per_mille > 0.5 ~ '5',
+             Deaths_due_to_obesity_per_mille <= 0.5 ~ '6',
+           ), labels = c('(2.5, 3] ‰', '(2, 2.5] ‰', '(1.5, 2] ‰', '(1, 1.5] ‰','(0.5, 1] ‰', '(0, 0.5] ‰')))
 
 countries2 <- world_map %>% 
   distinct(region) %>% 
@@ -156,28 +157,27 @@ countries2 <- world_map %>%
   rename(Country = region) %>% 
   left_join(deaths_obesity_in_2015_per_country, by = 'Country')
 
-
-map_obesity_deaths_per_mille <- countries2 %>% 
+discrete_map_obesity_deaths_per_mille <- countries2 %>% 
   ggplot(aes(fill = Discrete_deaths_due_to_obesity_permille, map_id = Country)) +
   geom_map(map = world_map) +
-  expand_limits(x = c(-190,190), y = world_map$lat) +
+  expand_limits(x = c(-185,185), y = world_map$lat) +
   coord_map("moll") +
   scale_fill_manual(values = c( "#660000","#921B07","#C83807","#FF9109","#FFBB13", "#fff323"), 
                     na.value = "grey") +
   theme_minimal() +
-  guides(fill = guide_legend(reverse = FALSE)) +
-  labs(fill = "Deaths due to obesity (‰)") +
+  labs(title = "Deaths due to obesity in proportion to population") +
   theme(legend.background = element_rect(fill = "#18191C", color = "#18191C"), 
         legend.text = element_text(color = "white"),
+        legend.title = element_blank(),
         plot.background = element_rect(fill = "#18191C", colour = "#18191C"),
         axis.title.x = element_blank(),
-        legend.position = c(1, 1), 
-        legend.justification = c(1, 1),
+        plot.title = element_text(color = "white", hjust = 0.5),
+        legend.position = c(0.14, 0.5),
         axis.title.y = element_blank(),
         axis.text.x = element_blank(),
         axis.text.y = element_blank(),
         line = element_line(linewidth = 0.5, colour = "white")
           )
 
-ggsave("plots/map_obesity_deaths_per_mille.pdf", plot = map_obesity_deaths_per_mille, width = 15,height = 10)
+ggsave("plots/discrete_map_obesity_deaths_per_mille.pdf", plot = discrete_map_obesity_deaths_per_mille, width = 12,height = 8)
 
