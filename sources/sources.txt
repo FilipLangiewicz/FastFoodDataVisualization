@@ -1,5 +1,5 @@
-https://kalkulatorkalorii.net/przepis/7921
-https://dietto.pl/dietetyczne-przepisy/35-pomyslow-na-niskokaloryczne-i-zdrowe-desery
+Datasets:
+
 https://ourworldindata.org/grapher/deaths-due-to-obesity?tab=table&fbclid=IwAR34dFXIR5fuWf_ro7xnpgdHhTjg1-pRaVNgcN3mOM5Eo16wd1_2ATPaMkk
 https://www.statista.com/statistics/561297/us-average-fast-food-consumption-per-week/
 https://www.kaggle.com/datasets/amanarora/obesity-among-adults-by-country-19752016
@@ -10,3 +10,10 @@ https://www.statista.com/statistics/222981/number-of-burger-king-restaurants-wor
 https://www.statista.com/statistics/469379/number-of-subway-restaurants-worldwide/
 https://www.statista.com/statistics/256828/pizza-hut-restaurants-worldwide/
 https://www.statista.com/statistics/207118/number-of-dominos-pizza-stores-worldwide/
+
+
+Other:
+
+https://kalkulatorkalorii.net/przepis/7921
+https://dietto.pl/dietetyczne-przepisy/35-pomyslow-na-niskokaloryczne-i-zdrowe-desery
+
